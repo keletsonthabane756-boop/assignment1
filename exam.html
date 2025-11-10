@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Take Exam - Online Exam</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Extra styling for results */
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #d4b3ff;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>Online Examination System - Student Exam</header>
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="student.html">Profile</a>
+        <a href="login.html">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h2>Exam: General Knowledge Test</h2>
+        <form id="examForm">
+            
+            <div class="question">
+                <p>1. What is the capital of France?</p>
+                <input type="radio" id="q1a" name="q1" value="Paris" required>
+                <label for="q1a">Paris</label><br>
+                <input type="radio" id="q1b" name="q1" value="London">
+                <label for="q1b">London</label><br>
+                <input type="radio" id="q1c" name="q1" value="Berlin">
+                <label for="q1c">Berlin</label><br>
+                <input type="radio" id="q1d" name="q1" value="Rome">
+                <label for="q1d">Rome</label><br>
+            </div>
+            
+            <div class="question">
+                <p>2. Which planet is known as the Red Planet?</p>
+                <input type="radio" id="q2a" name="q2" value="Mars" required>
+                <label for="q2a">Mars</label><br>
+                <input type="radio" id="q2b" name="q2" value="Venus">
+                <label for="q2b">Venus</label><br>
+                <input type="radio" id="q2c" name="q2" value="Jupiter">
+                <label for="q2c">Jupiter</label><br>
+                <input type="radio" id="q2d" name="q2" value="Saturn">
+                <label for="q2d">Saturn</label><br>
+            </div>
+            
+            <div class="question">
+                <p>3. What is 5 + 7?</p>
+                <input type="radio" id="q3a" name="q3" value="10" required>
+                <label for="q3a">10</label><br>
+                <input type="radio" id="q3b" name="q3" value="11">
+                <label for="q3b">11</label><br>
+                <input type="radio" id="q3c" name="q3" value="12">
+                <label for="q3c">12</label><br>
+                <input type="radio" id="q3d" name="q3" value="13">
+                <label for="q3d">13</label><br>
+            </div>
+            
+            <button type="submit">Submit Exam</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <footer>© 2025 Online Examination System</footer>
+
+    <script>
+        // Correct answers
+        const answers = {
+            q1: "Paris",
+            q2: "Mars",
+            q3: "12"
+        };
+
+        const form = document.getElementById("examForm");
+        const resultDiv = document.getElementById("result");
+
+        form.addEventListener("submit", function(e) {
+            e.preventDefault(); // Prevent page reload
+
+            let score = 0;
+            const total = Object.keys(answers).length;
+
+            for (let q in answers) {
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                if (selected && selected.value === answers[q]) {
+                    score++;
+                }
+            }
+
+            resultDiv.style.display = "block";
+            resultDiv.textContent = `You scored ${score} out of ${total}`;
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,107 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+<a href="register.html" class="home-card">Register</a>
+            <a href="admin.html" class="home-card">Administrator Panel</a>
+            <a href="student.html" class="home-card">Student Page</a>
+            <a href="examiner.html" class="home-card">Examiner Page</a>
+            <a href="home.html"class="home-card">Home</a>
+    <style>
+        /* Marks lookup form styling */
+        .marks-form {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f3e8ff;
+            border-radius: 8px;
+        }
+
+        .marks-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .marks-form button {
+            padding: 10px 20px;
+            background-color: #b266ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .marks-form button:hover {
+            background-color: #8000ff;
+        }
+
+        #marksResult {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #d4b3ff;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>Student Dashboard</header>
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="exam.html">Take Exam</a>
+        <a href="login.html">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h2>Welcome, Student</h2>
+        <p>You can take your available exams using the button below.</p>
+
+        <a href="exam.html" class="role-card" style="display:inline-block;">
+            <h3>Take Exam</h3>
+        </a>
+
+        <!-- Examiner marks lookup -->
+        <div class="marks-form">
+            <h3>Examiner: Access Student Marks</h3>
+            <form id="getMarksForm">
+                <label for="studentName">Enter Student Full Name:</label>
+                <input type="text" id="studentName" placeholder="Enter full name" required>
+                <button type="submit">Get Marks</button>
+            </form>
+            <div id="marksResult"></div>
+        </div>
+    </div>
+
+    <footer>© 2025 Online Examination System</footer>
+
+    <script>
+        // Simulated student marks
+        const studentMarks = {
+            "Keletso Nthabane": 3,
+            "Kananelo Makitle": 2,
+            "Selloane Molapo": 1
+        };
+
+        const getMarksForm = document.getElementById("getMarksForm");
+        const marksResult = document.getElementById("marksResult");
+
+        getMarksForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const studentName = document.getElementById("studentName").value.trim();
+
+            if (studentMarks[studentName] !== undefined) {
+                marksResult.style.display = "block";
+                marksResult.textContent = `${studentName} scored ${studentMarks[studentName]} out of 3`;
+            } else {
+                marksResult.style.display = "block";
+                marksResult.textContent = `No marks found for "${studentName}"`;
+            }
+        });
+    </script>
+</body>
+</html>

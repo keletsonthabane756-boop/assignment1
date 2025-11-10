@@ -1,0 +1,178 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Administrator Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styling for admin forms and tables */
+        .admin-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f3e8ff;
+            border-radius: 8px;
+        }
+
+        .admin-section input, .admin-section select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .admin-section button {
+            padding: 10px 20px;
+            background-color: #b266ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .admin-section button:hover {
+            background-color: #8000ff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+            background-color: #fff;
+        }
+
+        th {
+            background-color: #d4b3ff;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <header>Administrator Panel</header>
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="login.html">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h2>Welcome, Administrator</h2>
+        <p>You can manage users, subjects, and exams here.</p>
+
+        <!-- Section: Add User -->
+        <div class="admin-section">
+            <h3>Add New User</h3>
+            <form id="addUserForm">
+                <label for="userName">Full Name:</label>
+                <input type="text" id="userName" placeholder="Enter full name" required>
+
+                <label for="userEmail">Email:</label>
+                <input type="email" id="userEmail" placeholder="Enter email" required>
+
+                <label for="userRole">Role:</label>
+                <select id="userRole" required>
+                    <option value="">Select Role</option>
+                    <option value="Administrator">Administrator</option>
+                    <option value="Student">Student</option>
+                    <option value="Examiner">Examiner</option>
+                </select>
+
+                <button type="submit">Add User</button>
+            </form>
+            <p id="userAddedMsg" style="color:green; display:none;">User added successfully!</p>
+        </div>
+
+        <!-- Section: User List -->
+        <div class="admin-section">
+            <h3>Manage Users</h3>
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Users will appear here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>© 2025 Online Examination System</footer>
+
+    <script>
+        // Simulated users list
+        let users = [
+            { name: "Keletso Nthabane", email: "keletsonthabane756@gmail.com", role: "Student" },
+            { name: "Selloane Molapo", email: "selloanemolapo@gmail.com", role: "Examiner" },
+            { name: "Kananelo Makitle", email: "kananelomakitle@gmail.com", role: "Student" }
+        ];
+
+        const userTableBody = document.querySelector("#userTable tbody");
+        const addUserForm = document.getElementById("addUserForm");
+        const userAddedMsg = document.getElementById("userAddedMsg");
+
+        // Function to render users table
+        function renderUsers() {
+            userTableBody.innerHTML = "";
+            users.forEach((user, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.role}</td>
+                    <td><button class="delete-btn" onclick="deleteUser(${index})">Delete</button></td>
+                `;
+                userTableBody.appendChild(row);
+            });
+        }
+
+        // Add new user
+        addUserForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const name = document.getElementById("userName").value.trim();
+            const email = document.getElementById("userEmail").value.trim();
+            const role = document.getElementById("userRole").value;
+
+            if (name && email && role) {
+                users.push({ name, email, role });
+                renderUsers();
+                addUserForm.reset();
+                userAddedMsg.style.display = "block";
+                setTimeout(() => { userAddedMsg.style.display = "none"; }, 3000);
+            }
+        });
+
+        // Delete user
+        function deleteUser(index) {
+            if (confirm("Are you sure you want to delete this user?")) {
+                users.splice(index, 1);
+                renderUsers();
+            }
+        }
+
+        // Initial render
+        renderUsers();
+    </script>
+</body>
+</html>

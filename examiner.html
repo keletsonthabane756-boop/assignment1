@@ -1,0 +1,148 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Examiner Panel</title>
+    <link rel="stylesheet" href="style.css">
+   <a href="register.html" class="home-card">Register</a>
+            <a href="login.html" class="home-card">Login</a>
+            <a href="dashboard.html" class="home-card">Dashboard</a>
+            <a href="exam.html" class="home-card">Take Exam (Student)</a>
+            <a href="admin.html" class="home-card">Administrator Panel</a>
+            <a href="student.html" class="home-card">Student Page</a>
+            <a href="examiner.html" class="home-card">Examiner Page</a>
+<style>
+        /* Extra styling for forms and results */
+        .exam-form, .marks-form {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f3e8ff;
+            border-radius: 8px;
+        }
+
+        .exam-form input, .exam-form textarea,
+        .marks-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .exam-form button, .marks-form button {
+            padding: 10px 20px;
+            background-color: #b266ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .exam-form button:hover, .marks-form button:hover {
+            background-color: #8000ff;
+        }
+
+        #marksResult {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #d4b3ff;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>Examiner Panel</header>
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="login.html">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h2>Welcome, Examiner</h2>
+        <p>Manage your exam activities below:</p>
+
+        <!-- Section: Set a new exam -->
+        <div class="exam-form">
+            <h3>Set a New Exam</h3>
+            <form id="setExamForm">
+                <label for="examTitle">Exam Title:</label>
+                <input type="text" id="examTitle" placeholder="Enter exam title" required>
+
+                <label for="question1">Question 1:</label>
+                <textarea id="question1" placeholder="Enter question 1" required></textarea>
+
+                <label for="question2">Question 2:</label>
+                <textarea id="question2" placeholder="Enter question 2" required></textarea>
+
+                <label for="question3">Question 3:</label>
+                <textarea id="question3" placeholder="Enter question 3" required></textarea>
+
+                <button type="submit">Save Exam</button>
+            </form>
+            <p id="examSaved" style="color:green; display:none;">Exam saved successfully!</p>
+        </div>
+
+        <!-- Section: Access student marks -->
+        <div class="marks-form">
+            <h3>Access Student Marks</h3>
+            <form id="getMarksForm">
+                <label for="studentName">Student Full Name:</label>
+                <input type="text" id="studentName" placeholder="Enter student full name" required>
+                <button type="submit">Get Marks</button>
+            </form>
+            <div id="marksResult"></div>
+        </div>
+    </div>
+
+    <footer>© 2025 Online Examination System</footer>
+
+    <script>
+        // Simulated storage for exams
+        let exams = [];
+
+        // Save exam functionality
+        const setExamForm = document.getElementById("setExamForm");
+        const examSaved = document.getElementById("examSaved");
+
+        setExamForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const title = document.getElementById("examTitle").value;
+            const q1 = document.getElementById("question1").value;
+            const q2 = document.getElementById("question2").value;
+            const q3 = document.getElementById("question3").value;
+
+            exams.push({title, questions: [q1, q2, q3]});
+
+            examSaved.style.display = "block";
+            setExamForm.reset();
+            setTimeout(() => { examSaved.style.display = "none"; }, 3000);
+        });
+
+        // Simulated student marks data
+        const studentMarks = {
+            "John Doe": 3,
+            "Jane Smith": 2,
+            "Alice Brown": 1
+        };
+
+        // Get marks functionality
+        const getMarksForm = document.getElementById("getMarksForm");
+        const marksResult = document.getElementById("marksResult");
+
+        getMarksForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const studentName = document.getElementById("studentName").value.trim();
+
+            if (studentMarks[studentName] !== undefined) {
+                marksResult.style.display = "block";
+                marksResult.textContent = `${studentName} scored ${studentMarks[studentName]} out of 3`;
+            } else {
+                marksResult.style.display = "block";
+                marksResult.textContent = `No marks found for "${studentName}"`;
+            }
+        });
+    </script>
+</body>
+</html>
